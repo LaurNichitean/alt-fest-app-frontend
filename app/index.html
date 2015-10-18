@@ -56,6 +56,18 @@
   <md-content flex id="content">
     <h2>{{selectedArtist.name}}</h2>
     <!-- Here we will load content from 'Songs' controller -->
+    <md-card ng-repeat="song in selectedArtist.songs">
+      <iframe width="854" height="480" ng-src="{{song.urlYoutube}}" frameborder="0"></iframe>
+      <md-card-content>
+        <h2 class="md-title">{{song.name}}</h2>
+
+        <p>Likes: {{song.likes}}</p>
+      </md-card-content>
+      <div class="md-actions" layout="row" layout-align="end center">
+        <md-button ng-click="addVote(song, 1)">Like this song!</md-button>
+        <md-button ng-click="addVote(song, -1)">Dislike this song!</md-button>
+      </div>
+    </md-card>
   </md-content>
 
 </div>
@@ -69,6 +81,7 @@
 <script src="./src/app.js"></script>
 <script src="./src/artists/artist-ctrl.js"></script>
 <script src="./src/artists/artist-service.js"></script>
+<script src="./src/songs/song-service.js"></script>
 
 </body>
 </html>
