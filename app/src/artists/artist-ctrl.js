@@ -107,6 +107,54 @@
       });
     };
 
+    /* Edit song */
+    $scope.editSongInputVisible = false;
+
+    // add a custom propriety to our song object
+    $scope.editSong = function (song) {
+      angular.extend(song, {
+        isEdited: true
+      });
+    };
+
+    $scope.cancelEditSong = function (song) {
+      delete song.isEdited;
+    };
+
+    $scope.saveEditSong = function (song) {
+      // prepare object format before sending update to backend
+      song.urlYoutube = song.urlYoutube.replace('watch?v=', 'embed/');
+      // exit edit mode
+      $scope.cancelEditSong(song);
+      // prepare payload
+      var payload = {
+        name: song.name,
+        likes: song.likes,
+        urlYoutube: song.urlYoutube,
+        artistId: song.artistId
+      };
+      SongService.song().update({id: song._id}, payload).$promise.then(function (result) {
+        var saveEditSongMessage;
+        console.log('edit result', result);
+        // if the result has no message, it is successful
+        if (result.msg === '') {
+          saveEditSongMessage = 'Song was successfully updated.';
+        } else {
+          saveEditSongMessage = 'There was an error updating the song.';
+        }
+        // show notification with save result
+        $mdToast.show(
+          $mdToast.simple()
+            .content(saveEditSongMessage)
+            .position($scope.getToastPosition())
+            .hideDelay(3000)
+        );
+        $scope.addSongInputVisible = false;
+      });
+
+    };
+
+
     /* Toast - notifications section */
 
     var last = {
