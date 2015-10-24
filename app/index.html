@@ -34,11 +34,32 @@
     <h1>Artists</h1>
   </md-toolbar>
 
-  <md-list-item ng-repeat="artist in artists">
+  <md-list-item ng-repeat="artist in artists track by $index">
     <md-button ng-click="selectArtist(artist)" ng-class="{'selected' : artist === selectedArtist }">
       {{artist.name}}
     </md-button>
+    <md-button class="md-fab md-mini deleteArtist" ng-click="deleteArtist(artist, $index)">
+      <md-tooltip md-direction="right">Delete artist</md-tooltip>
+      -
+    </md-button>
   </md-list-item>
+  <!-- add artist button -->
+  <md-button class="md-primary md-fab md-mini add-button" ng-click="toggleAddArtist()">
+    <md-tooltip>
+      Add artist
+    </md-tooltip>
+    <span ng-if="!addArtistInputVisible">+</span>
+    <span ng-if="addArtistInputVisible">-</span>
+  </md-button>
+
+  <div ng-if="addArtistInputVisible">
+    <md-input-container>
+      <label>Artist name</label>
+      <input type="text" ng-model="artistToAdd.name"/>
+    </md-input-container>
+    <md-button ng-click="addArtist()" ng-disabled="!artistToAdd.name.length">Add</md-button>
+    <md-button ng-click="toggleAddArtist()">Cancel</md-button>
+  </div>
   </md-list>
 
 </md-sidenav>
