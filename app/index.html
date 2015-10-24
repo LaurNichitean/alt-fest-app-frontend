@@ -75,7 +75,7 @@
   <md-content flex id="content">
     <h2 style="padding-bottom: 15px">{{selectedArtist.name}}
       <!-- add song button -->
-      <md-button class="md-primary md-fab md-mini add-button" ng-click="toggleAddSong()">
+      <md-button class="md-primary md-fab md-mini add-button" ng-click="toggleAddSong()" ng-if="selectedArtist.name">
         <md-tooltip>
           Add song
         </md-tooltip>
