@@ -97,6 +97,7 @@
 
     // persist creation of a new song
     $scope.saveSong = function () {
+      $scope.selectedArtist.songs = $scope.selectedArtist.songs || [];
       // modify url to the 'embed' format
       $scope.songToAdd.urlYoutube = $scope.songToAdd.urlYoutube.replace('watch?v=', 'embed/');
       // send 'POST' request using 'save' method on our service
